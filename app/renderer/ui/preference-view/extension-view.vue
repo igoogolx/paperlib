@@ -251,10 +251,6 @@ onUnmounted(async () => {
               : $t("preference.extensionmarketplace")
           }}
         </span>
-        <Spinner
-          class="my-auto"
-          v-if="viewMode === 'marketplace' && isMarketLoading"
-        />
       </div>
       <div
         class="flex text-xs space-x-4 text-neutral-400 dark:text-neutral-500 cursor-pointer"
@@ -372,8 +368,13 @@ onUnmounted(async () => {
             {{ $t("preference.extensionsearchresult") }}
           </span>
         </div>
-        <div class="grid grid-cols-2 p-2 gap-2">
+        <div class="grid grid-cols-2 p-2 gap-2 relative min-h-16">
+          <Spinner
+            class="my-auto absolute left-1/2 top-1/2"
+            v-if="isMarketLoading"
+          />
           <ExtensionCard
+            v-else
             v-for="extension in marketExtensions"
             :name="extension.name.replace('@future-scholars/', '')"
             :verified="extension.verified"
